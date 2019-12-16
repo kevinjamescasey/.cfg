@@ -8,3 +8,4 @@
 (setq user-init-file init-file)
 (setq user-emacs-directory (file-name-directory user-init-file))
 (load-file init-file)
+(load-file "~/.emacs.d.mine/my-mode.el")
