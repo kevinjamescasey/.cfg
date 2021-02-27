@@ -37,12 +37,16 @@
 (define-key my-mode-map (kbd "C-'") 'kill-ring-save)
 (define-key my-mode-map (kbd "<C-m>") 'set-mark-command)
 (define-key input-decode-map [?\C-m] [C-m])
-(define-key my-mode-map (kbd "M-o") 'ace-window)
+(define-key my-mode-map (kbd "C-o") 'ace-window)
+(define-key my-mode-map (kbd "M-o") 'open-line)
 (define-key my-mode-map (kbd "C-SPC C-b") 'ibuffer-list-buffers)
 (define-key my-mode-map [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 
 (define-key my-mode-map (kbd "C-SPC g") 'magit-status)
 (define-key my-mode-map (kbd "M-z") 'zap-up-to-char)
+
+(define-key my-mode-map (kbd "C-,") 'beginning-of-buffer)
+(define-key my-mode-map (kbd "C-.") 'end-of-buffer)
 
 (define-key my-mode-map (kbd "M-,") 'beginning-of-buffer)
 (define-key my-mode-map (kbd "M-.") 'end-of-buffer)
@@ -51,5 +55,7 @@
 (define-key my-mode-map (kbd "M-p") 'scroll-down-command)
 
 (define-key (current-global-map) "\C-c!" 'shell-here)
+
+(define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 (delete-selection-mode 1)
 
