@@ -1,5 +1,8 @@
+;;; package --- Summary
+;;; Commentary:
 ;; Main use is to have my key bindings have the highest priority
 ;; https://github.com/kaushalmodi/.emacs.d/blob/master/elisp/modi-mode.el
+;;; Code:
 
 (defvar my-mode-map (make-sparse-keymap)
   "Keymap for `my-mode'.")
@@ -32,14 +35,22 @@
 
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
-(define-key my-mode-map (kbd "<C-return>") 'helm-M-x)
+(define-key my-mode-map (kbd "<C-return>") (if (fboundp 'helm-M-x) 'helm-M-x 'counsel-M-x))
 (define-key my-mode-map (kbd "C-;") 'er/expand-region)
 (define-key my-mode-map (kbd "C-'") 'kill-ring-save)
 (define-key my-mode-map (kbd "<C-m>") 'set-mark-command)
-(define-key input-decode-map [?\C-m] [C-m])
+(define-key input-decode-map [?\C-m] [C-m]) ;what is this for
 (define-key my-mode-map (kbd "C-o") 'ace-window)
 (define-key my-mode-map (kbd "M-o") 'open-line)
-(define-key my-mode-map (kbd "C-SPC C-b") 'ibuffer-list-buffers)
+
+; jump to buffer in Ibuffer in other window
+(define-key my-mode-map (kbd "C-SPC C-b") (lambda ()
+                                            (interactive)
+                                            (ibuffer-jump t)))
+;; (define-key my-mode-map (kbd "C-SPC C-b") (lambda ()
+;;                                             (interactive)
+;;                                             (ibuffer-list-buffers)
+;;                                             (select-window (get-buffer-window "*Ibuffer*"))))
 (define-key my-mode-map [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 
 (define-key my-mode-map (kbd "C-SPC g") 'magit-status)
@@ -51,10 +62,7 @@
 (define-key my-mode-map (kbd "M-,") 'beginning-of-buffer)
 (define-key my-mode-map (kbd "M-.") 'end-of-buffer)
 
-(define-key my-mode-map (kbd "M-n") 'scroll-up-command)
-(define-key my-mode-map (kbd "M-p") 'scroll-down-command)
-
-(define-key (current-global-map) "\C-c!" 'shell-here)
+;(define-key (current-global-map) "\C-c !" 'shell-here) ;trying out term instead
 
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 (delete-selection-mode 1)
