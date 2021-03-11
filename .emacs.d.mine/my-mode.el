@@ -38,8 +38,7 @@
 (define-key my-mode-map (kbd "<C-return>") (if (fboundp 'helm-M-x) 'helm-M-x 'counsel-M-x))
 (define-key my-mode-map (kbd "C-;") 'er/expand-region)
 (define-key my-mode-map (kbd "C-'") 'kill-ring-save)
-(define-key my-mode-map (kbd "<C-m>") 'set-mark-command)
-(define-key input-decode-map [?\C-m] [C-m]) ;what is this for
+(define-key my-mode-map (kbd "<C-m>") 'set-mark-command);
 (define-key my-mode-map (kbd "C-o") 'ace-window)
 (define-key my-mode-map (kbd "M-o") 'open-line)
 

@@ -24,11 +24,10 @@
       (term-char-mode)
     (term-line-mode)))
 
-(define-key term-mode-map (kbd "C-i") 'my/term-toggle-mode)
-(define-key term-mode-map (kbd "C-i") 'my/term-toggle-mode)
+(define-key term-mode-map (kbd "<C-i>") 'my/term-toggle-mode)
 
-(define-key term-raw-map (kbd "C-i") 'my/term-toggle-mode)
-(define-key term-raw-map (kbd "C-i") 'my/term-toggle-mode)
+(define-key term-raw-map (kbd "<C-i>") 'my/term-toggle-mode)
+
 
 
 ;;; term-toggle-mode.el ends here

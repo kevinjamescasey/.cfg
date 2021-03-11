@@ -13,6 +13,15 @@
 (global-set-key (kbd "C-SPC b") 'counsel-switch-buffer)
 (global-set-key (kbd "M-n") 'scroll-up-command)
 (global-set-key (kbd "M-p") 'scroll-down-command)
+(define-key input-decode-map [?\C-m] [C-m]) ;distinguish C-m from RET
+(define-key input-decode-map [?\C-i] [C-i]) ;distinguish C-i from TAB
+
+(if (boundp `dired-mode-map)
+    (print "dired-mode-map is bound")
+  (print "dired-mode-map is NOT bound"))
+(add-hook 'dired-mode-hook
+	  '(lambda ()
+             (define-key dired-mode-map "o" 'dired-display-file)))
 
 
 ;; use letters instead of numbers for ace-window
@@ -44,6 +53,7 @@
 
 (load-file "~/.emacs.d.mine/my-ibuffer.el")
 (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
+
 
 (load-file "~/.emacs.d.mine/my-mode.el")
 
