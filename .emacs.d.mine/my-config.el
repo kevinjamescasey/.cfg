@@ -8,6 +8,9 @@
   (print "Running on Windows")
     )
 
+
+(setf epa-pinentry-mode 'loopback); make gpg prompt for passphrase
+
 ;; Use C-SPC in place of C-x
 (global-set-key (kbd "C-SPC") (copy-keymap ctl-x-map))
 
@@ -105,11 +108,14 @@
 ;not really using this. should probably remove it
 ;I thought it would be useful to learn more ibuffer features, but YAGNI
 (load-file "~/.emacs.d.mine/hydra-ibuffer.el")
-(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
+;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
 
 (load-file "~/.emacs.d.mine/my-ibuffer.el")
-(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
-
+;(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
+(add-hook 'ibuffer-mode-hook
+          '(lambda ()
+             (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
+             (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)))
 
 (load-file "~/.emacs.d.mine/my-mode.el")
 
