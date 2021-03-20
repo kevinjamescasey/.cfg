@@ -10,11 +10,58 @@
 
 ;; Use C-SPC in place of C-x
 (global-set-key (kbd "C-SPC") (copy-keymap ctl-x-map))
-(global-set-key (kbd "C-SPC b") 'counsel-switch-buffer)
+
+ ;dash.el is required for -first
+ ;-first is used to choose the first command in the list that exists
+ ;this allows my-config to still work ok even if a particular package is not installed
+ ;this is helpful when switching between spacemacs, doom, vanilla, etc.
+(require 'dash)
+
+;;replacements for switch-to-buffer (C-x b)
+;ido-switch-buffer
+;helm-buffers-list
+;counsel-switch-buffer
+;ivy/switch-workspace-buffer never used
+;ivy/switch-buffer
+(global-set-key (kbd "C-SPC b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
+;mode-line-other buffer can be used to switch to most recent buffer without a prompt for selection
+
+;;replacements for find-file (C-x f)
+;spacemacs/helm-find-files
+;helm-find-files
+;counsel-find-file
+
+(global-set-key (kbd "C-SPC C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
+
+;;replacements for execute-extended-command (M-x)
+;helm-M-x
+;counsel-M-x
+
+;;searching
+;dead-grep
+;helm-occur find in current buffer
+;helm-rg grep current directory
+;counsel-rg grep current directory
+;consel-locate
+;swiper
+;swiper-helm
+
+(add-hook 'helm-minibuffer-set-up-hook (progn (setq helm-echo-input-in-header-line t)))
+
+;make redo work in Doom
+(if (fboundp 'after!)
+    (after! undo-fu
+            (map! :map undo-fu-mode-map "C-?" #'undo-fu-only-redo)))
+
+;make buffer switching commands work consistently
+;https://emacs.stackexchange.com/questions/64001/why-do-many-buffer-switching-commands-in-doom-emacs-skip-over-buffers-that-aren
+(setq doom-unreal-buffer-functions '(minibufferp))
+
 (global-set-key (kbd "M-n") 'scroll-up-command)
 (global-set-key (kbd "M-p") 'scroll-down-command)
 (define-key input-decode-map [?\C-m] [C-m]) ;distinguish C-m from RET
 (define-key input-decode-map [?\C-i] [C-i]) ;distinguish C-i from TAB
+
 
 (if (boundp `dired-mode-map)
     (print "dired-mode-map is bound")
@@ -40,14 +87,23 @@
   ; third  argument is the same as a prefix arg interactively
   (multi-occur-in-matching-buffers "." regexp t))
 
+;tried to make Emacs start in full screen
+;but doesn't quite line up correctly on Windows in XServer
+;(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
 
-;(add-to-list 'initial-frame-alist '(fullscreen . fullboth)) ;doesn't quite line up correctly on Windows in XServer
+; consider trying this auto save
+ ;; (defun save-all ()
+ ;;    (interactive)
+ ;;    (save-some-buffers t))
 
+ ;;  (add-hook 'focus-out-hook 'save-all)
 
 (load-file "~/.emacs.d.mine/term-toggle-mode.el")
 (load-file "~/.emacs.d.mine/run-term-in-project-or-here.el")
 (global-set-key (kbd "C-c !") 'run-term-in-project-or-here)
 
+;not really using this. should probably remove it
+;I thought it would be useful to learn more ibuffer features, but YAGNI
 (load-file "~/.emacs.d.mine/hydra-ibuffer.el")
 (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
 
