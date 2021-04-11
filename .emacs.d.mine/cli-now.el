@@ -18,22 +18,47 @@
 ;;  Description
 ;;
 ;;; Code:
+(defun make-x-now-func (x-func x-name)
+"Return an interactive function that will invoke X-FUNC
+to launch a cli program in a buffer named with X-NAME as the prefix.
+The suffix is determined by the current projectile project or
+current directory."
+(lambda (&optional arg)
+  "Switch to a buffer running x-func.
+Use projectile root directory if in a project,
+or use current directory otherwise.
+Reuse existing buffer and process if exists unless prefix ARG specified."
+  (interactive "P")
+  (let* ((project-dir (projectile-project-p))
+         (launch-dir    (if project-dir
+                          project-dir
+                        (or default-directory
+                            (file-name-directory buffer-file-name))))
+         (buffer-name (projectile-generate-process-name x-name arg launch-dir)))
+    (unless (get-buffer buffer-name)
+      (print (concat "Launching " x-name " in dir " launch-dir))
+      (projectile-with-default-dir launch-dir
+          (set-buffer (funcall x-func buffer-name))))
+    (switch-to-buffer buffer-name))))
 
-(defun run-term-in-project-or-here (&optional arg)
+(require 'shell)
+(fset 'shell-now (make-x-now-func 'shell "shell"))
+
+(require 'vterm)
+(fset 'vterm-now (make-x-now-func 'vterm "vterm"))
+
+(defun term-now (&optional arg)
   "Switch to a buffer running term.
 Use projectile root directory if in a project,
 or use current directory otherwise.
 Reuse existing buffer and process if exists unless prex ARG specified."
   (interactive "P")
   (let* ((project-dir (projectile-project-p))
-         (_ (print (concat "project-dir:" project-dir)))
          (term-dir    (if project-dir
                           project-dir
                         (or default-directory
                             (file-name-directory buffer-file-name))))
-         (_ (print (concat "term-dir:" term-dir)))
          (buffer-name (projectile-generate-process-name "term" arg term-dir))
-         (_ (print (concat "buffer-name:" term-dir)))
          (default-program (or explicit-shell-file-name
                               (getenv "ESHELL")
                               (getenv "SHELL")
@@ -43,11 +68,12 @@ Reuse existing buffer and process if exists unless prex ARG specified."
       (let ((program (if (equal arg '(16))
                          (read-from-minibuffer "Run program: " default-program)
                        default-program)))
+        (print (concat "Launching term in " term-dir " with " program))
         (projectile-with-default-dir term-dir
           (set-buffer (term-ansi-make-term buffer-name program))
           (term-mode)
           (term-char-mode))))
     (switch-to-buffer buffer-name)))
 
-(provide 'run-term-in-project-or-here)
-;;; run-term-in-project-or-here.el ends here
+(provide 'cli-now)
+;;; term-now.el  ends here

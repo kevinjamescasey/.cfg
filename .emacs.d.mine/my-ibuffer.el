@@ -28,7 +28,10 @@
           (or
            (used-mode . eshell-mode)
            (used-mode . term-mode)
-           (used-mode . shell-mode)))
+           (used-mode . shell-mode)
+           (used-mode . vterm-mode)))
+         ("repls"
+          (mode . comint-mode))
          ("files"
           (filename . "."))
          ("dired"

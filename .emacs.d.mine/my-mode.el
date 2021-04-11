@@ -35,12 +35,27 @@
 
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
+;had to move these back here from my-config.el becase vterm seems to override the global map
+(define-key my-mode-map (kbd "C-SPC") (copy-keymap ctl-x-map))
+;(define-key my-mode-map (kbd "C-SPC b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
+;(define-key my-mode-map (kbd "C-SPC C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
+
+
 (define-key my-mode-map (kbd "<C-return>") (if (fboundp 'helm-M-x) 'helm-M-x 'counsel-M-x))
 (define-key my-mode-map (kbd "C-;") 'er/expand-region)
 (define-key my-mode-map (kbd "C-'") 'kill-ring-save)
 (define-key my-mode-map (kbd "<C-m>") 'set-mark-command);
-(define-key my-mode-map (kbd "C-o") 'ace-window)
+(define-key my-mode-map (kbd "C-s-o") 'ace-window)
+(define-key my-mode-map (kbd "C-u C-o") 'ace-window)
 (define-key my-mode-map (kbd "M-o") 'open-line)
+
+(defun my-flip-window ()
+  (interactive)
+  (let ((win  (get-mru-window nil nil t)))
+    (when win (select-window win))))
+(define-key my-mode-map (kbd "C-o") 'my-flip-window)
+
+
 
 ; jump to buffer in Ibuffer in other window
 (define-key my-mode-map (kbd "C-SPC C-b") (lambda ()
@@ -64,5 +79,8 @@
 ;(define-key (current-global-map) "\C-c !" 'shell-here) ;trying out term instead
 
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
+
+(define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
+
 (delete-selection-mode 1)
 

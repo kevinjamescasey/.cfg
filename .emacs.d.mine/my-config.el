@@ -11,6 +11,9 @@
 
 (setf epa-pinentry-mode 'loopback); make gpg prompt for passphrase
 
+;stop frame from being suspended
+(global-set-key (kbd "C-x C-z") 'repeat)
+
 ;; Use C-SPC in place of C-x
 (global-set-key (kbd "C-SPC") (copy-keymap ctl-x-map))
 
@@ -62,8 +65,16 @@
 
 (global-set-key (kbd "M-n") 'scroll-up-command)
 (global-set-key (kbd "M-p") 'scroll-down-command)
+
+(global-set-key (kbd "M-p") 'scroll-down-command)
+
 (define-key input-decode-map [?\C-m] [C-m]) ;distinguish C-m from RET
 (define-key input-decode-map [?\C-i] [C-i]) ;distinguish C-i from TAB
+
+(add-hook 'vterm-mode-hook
+          '(lambda ()
+             (define-key vterm-mode-map (kbd "<C-i>") 'vterm-copy-mode)))
+
 
 
 (if (boundp `dired-mode-map)
@@ -83,12 +94,16 @@
   (interactive "P")
   (message "%s" arg))
 
+(defun shrug ()
+  (insert "¯\_(ツ)_/¯"))
+
 
 (defun search-all-buffers (regexp)
   "Search for REGEXP in all buffers."
   (interactive "sRegex: ")
   ; third  argument is the same as a prefix arg interactively
   (multi-occur-in-matching-buffers "." regexp t))
+
 
 ;tried to make Emacs start in full screen
 ;but doesn't quite line up correctly on Windows in XServer
@@ -102,8 +117,11 @@
  ;;  (add-hook 'focus-out-hook 'save-all)
 
 (load-file "~/.emacs.d.mine/term-toggle-mode.el")
-(load-file "~/.emacs.d.mine/run-term-in-project-or-here.el")
-(global-set-key (kbd "C-c !") 'run-term-in-project-or-here)
+(load-file "~/.emacs.d.mine/cli-now.el")
+(if (string-equal system-type "windows-nt")
+  (global-set-key (kbd "C-c !") 'term-now)
+  (global-set-key (kbd "C-c !") 'vterm-now))
+
 
 ;not really using this. should probably remove it
 ;I thought it would be useful to learn more ibuffer features, but YAGNI
