@@ -95,7 +95,8 @@
   (message "%s" arg))
 
 (defun shrug ()
-  (insert "¯\_(ツ)_/¯"))
+  (interactive)
+  (insert "¯\\_(ツ)_/¯"))
 
 
 (defun search-all-buffers (regexp)
