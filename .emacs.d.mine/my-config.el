@@ -14,9 +14,6 @@
 ;stop frame from being suspended
 (global-set-key (kbd "C-x C-z") 'repeat)
 
-;; Use C-SPC in place of C-x
-(global-set-key (kbd "C-SPC") (copy-keymap ctl-x-map))
-
  ;dash.el is required for -first
  ;-first is used to choose the first command in the list that exists
  ;this allows my-config to still work ok even if a particular package is not installed
@@ -29,7 +26,7 @@
 ;counsel-switch-buffer
 ;ivy/switch-workspace-buffer never used
 ;ivy/switch-buffer
-(global-set-key (kbd "C-SPC b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
+(global-set-key (kbd "C-x b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
 ;mode-line-other buffer can be used to switch to most recent buffer without a prompt for selection
 
 ;;replacements for find-file (C-x f)
@@ -37,11 +34,14 @@
 ;helm-find-files
 ;counsel-find-file
 
-(global-set-key (kbd "C-SPC C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
+(global-set-key (kbd "C-x C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
 
 ;;replacements for execute-extended-command (M-x)
 ;helm-M-x
 ;counsel-M-x
+
+;; Use C-SPC in place of C-x
+(global-set-key (kbd "C-SPC") (copy-keymap ctl-x-map))
 
 ;;searching
 ;dead-grep
@@ -122,6 +122,7 @@
 (if (string-equal system-type "windows-nt")
   (global-set-key (kbd "C-c !") 'term-now)
   (global-set-key (kbd "C-c !") 'vterm-now))
+(add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
 
 
 ;not really using this. should probably remove it
@@ -135,6 +136,9 @@
           '(lambda ()
              (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
              (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)))
+
+
+(load-file "~/.emacs.d.mine/open-file-at-point.el")
 
 (load-file "~/.emacs.d.mine/my-mode.el")
 

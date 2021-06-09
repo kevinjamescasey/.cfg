@@ -46,8 +46,9 @@
 (define-key my-mode-map (kbd "C-'") 'kill-ring-save)
 (define-key my-mode-map (kbd "<C-m>") 'set-mark-command);
 (define-key my-mode-map (kbd "C-s-o") 'ace-window)
-(define-key my-mode-map (kbd "C-u C-o") 'ace-window)
+(define-key my-mode-map (kbd "C-SPC C-o") 'ace-window)
 (define-key my-mode-map (kbd "M-o") 'open-line)
+(define-key my-mode-map (kbd "s-o") 'open-it)
 
 (defun my-flip-window ()
   (interactive)
