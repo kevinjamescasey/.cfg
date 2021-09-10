@@ -3,13 +3,8 @@
 ;; my configuration
 ;;; Code:
 
+(print (concat "System type:"  (symbol-name system-type)))
 
-(when (string-equal system-type "windows-nt")
-  (print "Running on Windows")
-    )
-
-
-(setf epa-pinentry-mode 'loopback); make gpg prompt for passphrase
 
 ;stop frame from being suspended
 (global-set-key (kbd "C-x C-z") 'repeat)
@@ -71,9 +66,30 @@
 (define-key input-decode-map [?\C-m] [C-m]) ;distinguish C-m from RET
 (define-key input-decode-map [?\C-i] [C-i]) ;distinguish C-i from TAB
 
-(add-hook 'vterm-mode-hook
+
+(print "loading my-mode.el")
+(load-file "~/.emacs.d.mine/my-mode.el")
+
+(print "loading my-cli.el")
+(load-file "~/.emacs.d.mine/my-cli.el")
+
+(print "Configuring less crucial things")
+
+;not really using this. should probably remove it
+;I thought it would be useful to learn more ibuffer features, but YAGNI
+(load-file "~/.emacs.d.mine/hydra-ibuffer.el")
+;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
+
+(print "loading my-ibuffer.el")
+(load-file "~/.emacs.d.mine/my-ibuffer.el")
+;(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
+(add-hook 'ibuffer-mode-hook
           '(lambda ()
-             (define-key vterm-mode-map (kbd "<C-i>") 'vterm-copy-mode)))
+             (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
+             (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)))
+
+(print "loading open-file-at-point.el")
+(load-file "~/.emacs.d.mine/open-file-at-point.el")
 
 
 
@@ -85,9 +101,11 @@
              (define-key dired-mode-map "o" 'dired-display-file)))
 
 
+
 ;; use letters instead of numbers for ace-window
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
+(setf epa-pinentry-mode 'loopback); make gpg prompt for passphrase
 
 (defun display-prefix (arg)
   "Display the value of the raw prefix ARG."
@@ -105,7 +123,6 @@
   ; third  argument is the same as a prefix arg interactively
   (multi-occur-in-matching-buffers "." regexp t))
 
-
 ;tried to make Emacs start in full screen
 ;but doesn't quite line up correctly on Windows in XServer
 ;(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
@@ -117,30 +134,6 @@
 
  ;;  (add-hook 'focus-out-hook 'save-all)
 
-(load-file "~/.emacs.d.mine/term-toggle-mode.el")
-(load-file "~/.emacs.d.mine/cli-now.el")
-(if (string-equal system-type "windows-nt")
-  (global-set-key (kbd "C-c !") 'term-now)
-  (global-set-key (kbd "C-c !") 'vterm-now))
-(add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
-
-
-;not really using this. should probably remove it
-;I thought it would be useful to learn more ibuffer features, but YAGNI
-(load-file "~/.emacs.d.mine/hydra-ibuffer.el")
-;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
-
-(load-file "~/.emacs.d.mine/my-ibuffer.el")
-;(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
-(add-hook 'ibuffer-mode-hook
-          '(lambda ()
-             (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
-             (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)))
-
-
-(load-file "~/.emacs.d.mine/open-file-at-point.el")
-
-(load-file "~/.emacs.d.mine/my-mode.el")
 
 (provide 'my-config)
 ;;; my-config.el ends here

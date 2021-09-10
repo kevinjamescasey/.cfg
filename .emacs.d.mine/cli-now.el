@@ -41,11 +41,6 @@ Reuse existing buffer and process if exists unless prefix ARG specified."
           (set-buffer (funcall x-func buffer-name))))
     (switch-to-buffer buffer-name))))
 
-(require 'shell)
-(fset 'shell-now (make-x-now-func 'shell "shell"))
-
-(require 'vterm)
-(fset 'vterm-now (make-x-now-func 'vterm "vterm"))
 
 (defun term-now (&optional arg)
   "Switch to a buffer running term.
