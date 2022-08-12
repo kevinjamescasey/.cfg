@@ -69,19 +69,27 @@
 (define-key my-mode-map [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 
 (define-key my-mode-map (kbd "C-SPC g") 'magit-status)
-(define-key my-mode-map (kbd "M-z") 'zap-up-to-char)
+(define-key my-mode-map (kbd "M-z") 'lsp-find-definition)
 
 (define-key my-mode-map (kbd "C-,") 'beginning-of-buffer)
 (define-key my-mode-map (kbd "C-.") 'end-of-buffer)
 
-(define-key my-mode-map (kbd "M-,") 'beginning-of-buffer)
-(define-key my-mode-map (kbd "M-.") 'end-of-buffer)
+(define-key my-mode-map (kbd "M-,") 'xref-go-back)
+(define-key my-mode-map (kbd "M-.") 'xref-go-forward)
+
+(define-key my-mode-map (kbd "s-,") (lambda () (interactive) (scroll-down-line 5)))
+(define-key my-mode-map (kbd "s-.") (lambda () (interactive) (scroll-up-line 5)))
+
+(define-key my-mode-map (kbd "C-<") (lambda () (interactive) (scroll-down-line 5)))
+(define-key my-mode-map (kbd "C->") (lambda () (interactive) (scroll-up-line 5)))
 
 ;(define-key (current-global-map) "\C-c !" 'shell-here) ;trying out term instead
 
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 
 (define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
+
+(define-key my-mode-map (kbd "C-s-s") 'deadgrep)
 
 (delete-selection-mode 1)
 
