@@ -61,8 +61,6 @@
 (global-set-key (kbd "M-n") 'scroll-up-command)
 (global-set-key (kbd "M-p") 'scroll-down-command)
 
-(global-set-key (kbd "M-p") 'scroll-down-command)
-
 (define-key input-decode-map [?\C-m] [C-m]) ;distinguish C-m from RET
 (define-key input-decode-map [?\C-i] [C-i]) ;distinguish C-i from TAB
 
@@ -72,6 +70,8 @@
 
 (print "loading my-cli.el")
 (load-file "~/.emacs.d.mine/my-cli.el")
+
+(setq mac-right-option-modifier 'left)
 
 (print "Configuring less crucial things")
 
@@ -105,6 +105,9 @@
 ;; use letters instead of numbers for ace-window
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
+;white borders help between vterm panes that don't have a mode line
+(set-face-foreground 'vertical-border "white")
+
 (setf epa-pinentry-mode 'loopback); make gpg prompt for passphrase
 
 (defun display-prefix (arg)
@@ -122,6 +125,39 @@
   (interactive "sRegex: ")
   ; third  argument is the same as a prefix arg interactively
   (multi-occur-in-matching-buffers "." regexp t))
+
+;https://stackoverflow.com/a/9411825
+(defun copy-buffer-file-name-as-kill (choice)
+  "Copies all or part of the name of the buffer's file path to the kill-ring."
+  ;(interactive "cCopy (b) buffer name, (m) buffer major mode, (f) full buffer-file path, (d) buffer-file directory, (n) buffer-file basename")
+  (interactive "cCopy (f) file name, (d) directory, (a) absolute path, (p) relative to project, (h) relative to home")
+  (let ((new-kill-string)
+        (name (if (eq major-mode 'dired-mode)
+                  (dired-get-filename)
+                (or (buffer-file-name) ""))))
+    (cond ((eq choice ?a)
+           (setq new-kill-string name))
+          ((eq choice ?f)
+           (setq new-kill-string (file-name-nondirectory name)))
+          ((eq choice ?d)
+           (setq new-kill-string (file-name-directory name)))
+          ((eq choice ?p)
+           (setq new-kill-string (file-relative-name name (projectile-project-root))))
+          ((eq choice ?h)
+           (setq new-kill-string (concat "~/" (file-relative-name name "~"))))
+          ;; ((eq choice ?b)
+          ;;  (setq new-kill-string (buffer-name)))
+          ;; ((eq choice ?m)
+          ;;  (setq new-kill-string (format "%s" major-mode)))
+          (t (message "Quit")))
+    (when new-kill-string
+      (message "%s copied" new-kill-string)
+      (kill-new new-kill-string))))
+
+(setq-default typescript-indent-level 2)
+
+(add-hook 'vue-mode-hook #'lsp!)
+
 
 ;tried to make Emacs start in full screen
 ;but doesn't quite line up correctly on Windows in XServer
