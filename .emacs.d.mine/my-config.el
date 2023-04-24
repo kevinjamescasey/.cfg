@@ -8,6 +8,7 @@
 
 ;stop frame from being suspended
 (global-set-key (kbd "C-x C-z") 'repeat)
+(global-set-key (kbd "C-z") 'repeat)
 
  ;dash.el is required for -first
  ;-first is used to choose the first command in the list that exists
