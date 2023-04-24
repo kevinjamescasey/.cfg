@@ -26,6 +26,15 @@ sharingPrompt() {
     PS1="\t> "
 }
 
+sharingPrompt2() {
+    echo "Running on $(uname -sr)"
+    PS1="%t> "
+}
+
 defaultPrompt() {
     PS1="$DEFAULT_PS1"
+}
+
+standardPrompt() {
+    PS1='%F{magenta}%D %* %~>%f'
 }
