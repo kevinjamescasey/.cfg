@@ -23,6 +23,7 @@
 ;ivy/switch-workspace-buffer never used
 ;ivy/switch-buffer
 (global-set-key (kbd "C-x b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
+(setq helm-buffer-max-length nil) ;buffer name column width as wide as the longest name instead of the default 20 width
 ;mode-line-other buffer can be used to switch to most recent buffer without a prompt for selection
 
 ;;replacements for find-file (C-x f)
@@ -106,8 +107,6 @@
 ;; use letters instead of numbers for ace-window
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
-;white borders help between vterm panes that don't have a mode line
-(set-face-foreground 'vertical-border "white")
 
 (setf epa-pinentry-mode 'loopback); make gpg prompt for passphrase
 
@@ -171,6 +170,24 @@
 
  ;;  (add-hook 'focus-out-hook 'save-all)
 
+
+; white borders help between vterm panes that don't have a mode line
+; this is not working automatically but it works if you eval it
+; maybe it needs to run at a different time in a hook or something
+(set-face-foreground 'vertical-border "white")
+
+
+;;https://github.com/jscheid/prettier.el#configuration
+;;format on save where possible
+(add-hook 'after-init-hook #'global-prettier-mode)
+
+;;causing a popup on save that says it can't find prettier
+;; (use-package prettier
+;;   :hook ((typescript-mode . prettier-mode)
+;;          ;(js-mode . prettier-mode)
+;;          (json-mode . prettier-mode)
+;;          (yaml-mode . prettier-mode)
+;;          (ruby-mode . prettier-mode)))
 
 (provide 'my-config)
 ;;; my-config.el ends here

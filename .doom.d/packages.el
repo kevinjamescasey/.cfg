@@ -56,3 +56,4 @@
 (package! graphql-mode)
 ;(package! nvm)
 (package! vue-mode)
+(package! prettier)

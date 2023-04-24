@@ -8,9 +8,8 @@
 ;;
 ;;; Code:
 
-(print "loading my-eshell.el")
-(load-file "~/.emacs.d.mine/my-eshell.el")
-
+;(print "loading my-eshell.el")
+;(load-file "~/.emacs.d.mine/my-eshell.el")
 
 (print "loading term-toggle-mode.el")
 (load-file "~/.emacs.d.mine/term-toggle-mode.el")
