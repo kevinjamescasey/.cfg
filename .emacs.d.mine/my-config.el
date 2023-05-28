@@ -10,6 +10,9 @@
 (global-set-key (kbd "C-x C-z") 'repeat)
 (global-set-key (kbd "C-z") 'repeat)
 
+;stop macro thing from accidentally popping up all the time when trying to kill a buffer
+(global-set-key (kbd "C-x  C-k") 'kill-buffer)
+
  ;dash.el is required for -first
  ;-first is used to choose the first command in the list that exists
  ;this allows my-config to still work ok even if a particular package is not installed
