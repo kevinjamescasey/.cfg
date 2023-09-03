@@ -52,3 +52,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+
+;; load my own stuff outside of the doom directories
+(load-file "~/.emacs.d.mine/my-config.el")
