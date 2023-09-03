@@ -68,7 +68,7 @@
 ;;                                             (select-window (get-buffer-window "*Ibuffer*"))))
 (define-key my-mode-map [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 
-(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
+
 (define-key my-mode-map (kbd "M-z") 'lsp-find-definition)
 
 (define-key my-mode-map (kbd "C-,") 'beginning-of-buffer)
@@ -89,6 +89,8 @@
 
 (define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
 
+;(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
+(define-key my-mode-map (kbd "C-SPC g") 'deadgrep)
 (define-key my-mode-map (kbd "C-s-s") 'deadgrep)
 
 (delete-selection-mode 1)
