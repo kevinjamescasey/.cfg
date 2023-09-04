@@ -24,6 +24,8 @@
        (("default"
          ("dired"
           (mode . dired-mode))
+         ("dired"
+          (used-mode . dired-mode))
          ("shells"
           (or
            (used-mode . eshell-mode)
@@ -33,11 +35,12 @@
          ("repls"
           (mode . comint-mode))
          ("files"
-          (filename . "."))
-         ("dired"
-          (used-mode . dired-mode))
+          (and (filename . ".")
+               (not (used-mode . helpful-mode))
+               (not (used-mode . emacs-news-view-mode))))
          ("special"
-          (starred-name))))))
+          (or (starred-name)
+              (used-mode . emacs-news-view-mode)))))))
 
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
