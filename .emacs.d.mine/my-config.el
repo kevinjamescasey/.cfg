@@ -192,5 +192,10 @@
 ;;          (yaml-mode . prettier-mode)
 ;;          (ruby-mode . prettier-mode)))
 
+(use-package idle-highlight-mode
+  :config (setq idle-highlight-idle-time 0.2 idle-highlight-visible-buffers t)
+
+  :hook ((prog-mode text-mode) . idle-highlight-mode))
+
 (provide 'my-config)
 ;;; my-config.el ends here
