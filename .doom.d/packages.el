@@ -64,3 +64,8 @@
 (package! gitignore-mode
 	  :recipe (:host github :repo "magit/git-modes"
 			 :files ("gitignore-mode.el")))
+
+
+(package! idle-highlight-mode)
+
+(package! neotree)

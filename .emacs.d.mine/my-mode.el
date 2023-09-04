@@ -88,10 +88,13 @@
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 
 (define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
+(define-key my-mode-map (kbd "C-SPC C-d") 'neotree-find)
 
 ;(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
 (define-key my-mode-map (kbd "C-SPC g") 'deadgrep)
 (define-key my-mode-map (kbd "C-s-s") 'deadgrep)
+
+
 
 (delete-selection-mode 1)
 
