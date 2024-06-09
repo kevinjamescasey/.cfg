@@ -15,11 +15,11 @@ echo "  fetch = +refs/heads/*:refs/remotes/origin/*" >> .cfg/config
 ## Emacs
 GNU Emacs needs to be installed before these configurations can work.
 
-Spacemacs
+### Spacemacs
 ```
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d.spacemacs
 ```
-Doom
+### Doom  
 Follow https://github.com/doomemacs/doomemacs?tab=readme-ov-file#prerequisites to install Emacs and other utilities used by Doom.
 ```
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d.doom
