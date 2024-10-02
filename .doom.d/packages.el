@@ -56,7 +56,7 @@
 (package! graphql-mode)
 ;(package! nvm)
 (package! vue-mode)
-(package! prettier)
+;(package! prettier)
 
 (package! gitconfig-mode
 	  :recipe (:host github :repo "magit/git-modes"

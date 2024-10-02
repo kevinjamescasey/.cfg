@@ -35,13 +35,13 @@
 
 ;; Minor mode tutorial: http://nullprogram.com/blog/2013/02/06/
 
-;had to move these back here from my-config.el becase vterm seems to override the global map
+                                        ;had to move these back here from my-config.el becase vterm seems to override the global map
 (define-key my-mode-map (kbd "C-SPC") (copy-keymap ctl-x-map))
-;(define-key my-mode-map (kbd "C-SPC b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
-;(define-key my-mode-map (kbd "C-SPC C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
+                                        ;(define-key my-mode-map (kbd "C-SPC b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
+                                        ;(define-key my-mode-map (kbd "C-SPC C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
 
 
-(define-key my-mode-map (kbd "<C-return>") (if (fboundp 'helm-M-x) 'helm-M-x 'counsel-M-x))
+(define-key my-mode-map (kbd "<C-return>") (-first 'fboundp '(helm-M-x counsel-M-x execute-extended-command)))
 (define-key my-mode-map (kbd "C-;") 'er/expand-region)
 (define-key my-mode-map (kbd "C-'") 'kill-ring-save)
 (define-key my-mode-map (kbd "<C-m>") 'set-mark-command);
@@ -58,7 +58,7 @@
 
 
 
-; jump to buffer in Ibuffer in other window
+                                        ; jump to buffer in Ibuffer in other window
 (define-key my-mode-map (kbd "C-SPC C-b") (lambda ()
                                             (interactive)
                                             (ibuffer-jump t)))
@@ -83,14 +83,14 @@
 (define-key my-mode-map (kbd "C-<") (lambda () (interactive) (scroll-down-line 5)))
 (define-key my-mode-map (kbd "C->") (lambda () (interactive) (scroll-up-line 5)))
 
-;(define-key (current-global-map) "\C-c !" 'shell-here) ;trying out term instead
+                                        ;(define-key (current-global-map) "\C-c !" 'shell-here) ;trying out term instead
 
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 
 (define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
 (define-key my-mode-map (kbd "C-SPC C-d") 'neotree-find)
 
-;(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
+                                        ;(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
 (define-key my-mode-map (kbd "C-SPC g") 'deadgrep)
 (define-key my-mode-map (kbd "C-s-s") 'deadgrep)
 

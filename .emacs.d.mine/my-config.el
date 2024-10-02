@@ -6,61 +6,74 @@
 (print (concat "System type:"  (symbol-name system-type)))
 
 
-;stop frame from being suspended
+                                        ;stop frame from being suspended
 (global-set-key (kbd "C-x C-z") 'repeat)
 (global-set-key (kbd "C-z") 'repeat)
 
-;stop macro thing from accidentally popping up all the time when trying to kill a buffer
+                                        ;stop macro thing from accidentally popping up all the time when trying to kill a buffer
 (global-set-key (kbd "C-x  C-k") 'kill-buffer)
 
- ;dash.el is required for -first
- ;-first is used to choose the first command in the list that exists
- ;this allows my-config to still work ok even if a particular package is not installed
- ;this is helpful when switching between spacemacs, doom, vanilla, etc.
+;;dash.el is required for -first
+;;-first is used to choose the first command in the list that exists
+;;this allows my-config to still work ok even if a particular package is not installed
+;;this is helpful when switching between spacemacs, doom, vanilla, etc.
 (require 'dash)
 
+;;A few of the  endless completion/suggestion tools available:
+;; company helm ido ivy vertico counsel consult
+;;
+;;completing-read (mini-buffer): helm, ido, ivy, vertico, counsel, consut
+;;completion-at-point (regular buffers):
+;;  UI: company (company-complete seems to launch it), corfu
+;;  completion-at-point (provides the suggestions): company (view company-backends variable to see engines), various language modes, cape, LSPs
+
 ;;replacements for switch-to-buffer (C-x b)
-;ido-switch-buffer
-;helm-buffers-list
-;counsel-switch-buffer
-;ivy/switch-workspace-buffer never used
-;ivy/switch-buffer
-(global-set-key (kbd "C-x b") (-first 'fboundp '(helm-buffers-list counsel-switch-buffer)))
+                                        ;ido-switch-buffer
+                                        ;helm-buffers-list
+                                        ;counsel-switch-buffer
+                                        ;ivy/switch-workspace-buffer never used
+                                        ;ivy/switch-buffer
+                                        ;vertico/switch-workspace-buffer
+                                        ;consult-buffer
+(global-set-key (kbd "C-x b") (-first 'fboundp '(+vertico/switch-workspace-buffer helm-buffers-list counsel-switch-buffer switch-to-buffer)))
+
 (setq helm-buffer-max-length nil) ;buffer name column width as wide as the longest name instead of the default 20 width
-;mode-line-other buffer can be used to switch to most recent buffer without a prompt for selection
+                                        ;mode-line-other buffer can be used to switch to most recent buffer without a prompt for selection
 
 ;;replacements for find-file (C-x f)
-;spacemacs/helm-find-files
-;helm-find-files
-;counsel-find-file
+                                        ;spacemacs/helm-find-files
+                                        ;helm-find-files
+                                        ;counsel-find-file
+                                        ;ido-find-files
 
-(global-set-key (kbd "C-x C-f") (-first 'fboundp '(counsel-find-file helm-find-files)))
+(global-set-key (kbd "C-x C-f") (-first 'fboundp '(ido-find-file counsel-find-file helm-find-files find-file)))
+
 
 ;;replacements for execute-extended-command (M-x)
-;helm-M-x
-;counsel-M-x
+                                        ;helm-M-x
+                                        ;counsel-M-xhk
 
 ;; Use C-SPC in place of C-x
 (global-set-key (kbd "C-SPC") (copy-keymap ctl-x-map))
 
 ;;searching
-;dead-grep
-;helm-occur find in current buffer
-;helm-rg grep current directory
-;counsel-rg grep current directory
-;consel-locate
-;swiper
-;swiper-helm
+                                        ;dead-grep
+                                        ;helm-occur find in current buffer
+                                        ;helm-rg grep current directory
+                                        ;counsel-rg grep current directory
+                                        ;consel-locate
+                                        ;swiper
+                                        ;swiper-helm
 
 (add-hook 'helm-minibuffer-set-up-hook (progn (setq helm-echo-input-in-header-line t)))
 
-;make redo work in Doom
+                                        ;make redo work in Doom
 (if (fboundp 'after!)
     (after! undo-fu
-            (map! :map undo-fu-mode-map "C-?" #'undo-fu-only-redo)))
+      (map! :map undo-fu-mode-map "C-?" #'undo-fu-only-redo)))
 
-;make buffer switching commands work consistently
-;https://emacs.stackexchange.com/questions/64001/why-do-many-buffer-switching-commands-in-doom-emacs-skip-over-buffers-that-aren
+                                        ;make buffer switching commands work consistently
+                                        ;https://emacs.stackexchange.com/questions/64001/why-do-many-buffer-switching-commands-in-doom-emacs-skip-over-buffers-that-aren
 (setq doom-unreal-buffer-functions '(minibufferp))
 
 (global-set-key (kbd "M-n") 'scroll-up-command)
@@ -80,18 +93,19 @@
 
 (print "Configuring less crucial things")
 
-;not really using this. should probably remove it
-;I thought it would be useful to learn more ibuffer features, but YAGNI
+                                        ;not really using this. should probably remove it
+                                        ;I thought it would be useful to learn more ibuffer features, but YAGNI
 (load-file "~/.emacs.d.mine/hydra-ibuffer.el")
-;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
+                                        ;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
 
 (print "loading my-ibuffer.el")
 (load-file "~/.emacs.d.mine/my-ibuffer.el")
-;(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
+                                        ;(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
              (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
-             (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)))
+             (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
+             ))
 
 (print "loading open-file-at-point.el")
 (load-file "~/.emacs.d.mine/open-file-at-point.el")
@@ -126,13 +140,13 @@
 (defun search-all-buffers (regexp)
   "Search for REGEXP in all buffers."
   (interactive "sRegex: ")
-  ; third  argument is the same as a prefix arg interactively
+                                        ; third  argument is the same as a prefix arg interactively
   (multi-occur-in-matching-buffers "." regexp t))
 
-;https://stackoverflow.com/a/9411825
+                                        ;https://stackoverflow.com/a/9411825
 (defun copy-buffer-file-name-as-kill (choice)
   "Copies all or part of the name of the buffer's file path to the kill-ring."
-  ;(interactive "cCopy (b) buffer name, (m) buffer major mode, (f) full buffer-file path, (d) buffer-file directory, (n) buffer-file basename")
+                                        ;(interactive "cCopy (b) buffer name, (m) buffer major mode, (f) full buffer-file path, (d) buffer-file directory, (n) buffer-file basename")
   (interactive "cCopy (f) file name, (d) directory, (a) absolute path, (p) relative to project, (h) relative to home")
   (let ((new-kill-string)
         (name (if (eq major-mode 'dired-mode)
@@ -159,30 +173,39 @@
 
 (setq-default typescript-indent-level 2)
 
+
+;; turn on GitHub flavored Markdown mode for .mdx files
+;; also seesm to prevent ws-butler from causing problems with whitespace at the end of lines
+(add-to-list 'auto-mode-alist '("\\.mdx\\'" . gfm-mode))
+
+
+;; start in fullscreen
+(toggle-frame-fullscreen)
+
 (add-hook 'vue-mode-hook #'lsp!)
 
 
-;tried to make Emacs start in full screen
-;but doesn't quite line up correctly on Windows in XServer
-;(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
+                                        ;tried to make Emacs start in full screen
+                                        ;but doesn't quite line up correctly on Windows in XServer
+                                        ;(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
 
-; consider trying this auto save
- ;; (defun save-all ()
- ;;    (interactive)
- ;;    (save-some-buffers t))
+                                        ; consider trying this auto save
+;; (defun save-all ()
+;;    (interactive)
+;;    (save-some-buffers t))
 
- ;;  (add-hook 'focus-out-hook 'save-all)
+;;  (add-hook 'focus-out-hook 'save-all)
 
 
-; white borders help between vterm panes that don't have a mode line
-; this is not working automatically but it works if you eval it
-; maybe it needs to run at a different time in a hook or something
+                                        ; white borders help between vterm panes that don't have a mode line
+                                        ; this is not working automatically but it works if you eval it
+                                        ; maybe it needs to run at a different time in a hook or something
 (set-face-foreground 'vertical-border "white")
 
 
 ;;https://github.com/jscheid/prettier.el#configuration
 ;;format on save where possible
-(add-hook 'after-init-hook #'global-prettier-mode)
+                                        ;(add-hook 'after-init-hook #'global-prettier-mode)
 
 ;;causing a popup on save that says it can't find prettier
 ;; (use-package prettier
