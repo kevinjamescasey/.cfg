@@ -70,16 +70,29 @@ Version 2019-11-04 2021-02-16"
       (let ((process-connection-type nil))
         (start-process "" nil "xdg-open" file-path))))))
 
+(require 'dash) ;; provides -first
+(require 'dired) ;; provides dired-current-directory
+
+(defun get-path-dwim ()
+  "Find a path indicated by point or buffer focus."
+  (-first 'identity (list (and (string-equal major-mode "dired-mode")
+                               (dired-get-filename nil t)) ; pass no first arg to get default behavior; pass second arg to avoid errors
+                          (and (string-equal major-mode "dired-mode")
+                               (dired-current-directory))
+                          (thing-at-point 'filename)
+                          (buffer-file-name))))
+
 (defun open-in-vscode ()
+  "Open the thing identified by get-path-dwim in VSCode."
   (interactive)
-  (let ((file-path (thing-at-point 'filename)))
-    (print file-path)
+  (let ((file-path (get-path-dwim)))
     (shell-command
      (concat "code -n " (shell-quote-argument (expand-file-name file-path))))))
 
 (defun show-it ()
+  "Show what is returned from get-path-dwim."
   (interactive)
-  (message "%s" (thing-at-point 'filename)))
+  (message "%s" (get-path-dwim)))
 
 (provide 'open-file-at-point)
 ;;; open-file-at-point.el ends here
