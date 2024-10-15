@@ -58,17 +58,28 @@ Version 2019-11-04 2021-02-16"
 
 (defun open-it ()
   (interactive)
-  (let ((file-path (ffap-file-at-point)))
+  (let ((file-path (thing-at-point 'filename)))
     (print (concat "file-path is " file-path))
     (cond
      ((string-equal system-type "windows-nt")
       (shell-command (concat "PowerShell -Command \"Invoke-Item -LiteralPath\" " "'" (shell-quote-argument (expand-file-name file-path)) "'")))
      ((string-equal system-type "darwin")
       (shell-command
-          (concat "open " (shell-quote-argument (expand-file-name file-path)))))
+       (concat "open " (shell-quote-argument (expand-file-name file-path)))))
      ((string-equal system-type "gnu/linux")
       (let ((process-connection-type nil))
-                          (start-process "" nil "xdg-open" file-path))))))
+        (start-process "" nil "xdg-open" file-path))))))
+
+(defun open-in-vscode ()
+  (interactive)
+  (let ((file-path (thing-at-point 'filename)))
+    (print file-path)
+    (shell-command
+     (concat "code -n " (shell-quote-argument (expand-file-name file-path))))))
+
+(defun show-it ()
+  (interactive)
+  (message "%s" (thing-at-point 'filename)))
 
 (provide 'open-file-at-point)
 ;;; open-file-at-point.el ends here
