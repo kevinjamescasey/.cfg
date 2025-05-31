@@ -1,0 +1,25 @@
+{
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "codeium.enableConfig": {
+    "*": true
+  },
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "codyPlusPlus.excludedFolders": [
+    "node_modules",
+    ".git",
+    ".venv",
+    ".pytest_cache"
+  ],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.confirmSaveUntitledWorkspace": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "python.defaultInterpreterPath": "./.venv/bin/python"
+}
