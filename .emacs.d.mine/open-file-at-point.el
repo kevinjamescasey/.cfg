@@ -54,7 +54,7 @@ Version 2019-11-04 2021-02-16"
                             (start-process "" nil "xdg-open" $fpath))) $file-list))))))
 
 
-
+(require 'thingatpt)
 
 (defun open-it ()
   (interactive)
@@ -87,7 +87,7 @@ Version 2019-11-04 2021-02-16"
   (interactive)
   (let ((file-path (get-path-dwim)))
     (shell-command
-     (concat "code -n " (shell-quote-argument (expand-file-name file-path))))))
+     (concat "code " (shell-quote-argument (expand-file-name file-path))))))
 
 (defun show-it ()
   "Show what is returned from get-path-dwim."

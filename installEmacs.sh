@@ -17,7 +17,7 @@ brew install shellcheck
 npm install -g prettier
 
 
-#install doom
+#install emacs
 brew tap railwaycat/emacsmacport
 brew install emacs-mac --with-modules
 
