@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -21,5 +21,44 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "python.defaultInterpreterPath": "./.venv/bin/python"
+  "python.defaultInterpreterPath": "./.venv/bin/python",
+
+  "files.associations": {
+    "*.template": "yaml"
+  },
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "files.autoSave": "onFocusChange",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "csharp.suppressDotnetInstallWarning": true,
+  "aws.telemetry": false,
+  "git.blame.editorDecoration.enabled": false,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "chat.mcp.serverSampling": {
+    "Global in Code: playwright": {
+      "allowedModels": [
+        "github.copilot-chat/claude-sonnet-4",
+        "github.copilot-chat/gpt-4.1",
+        "github.copilot-chat/claude-3.5-sonnet",
+        "github.copilot-chat/claude-3.7-sonnet",
+        "github.copilot-chat/claude-3.7-sonnet-thought",
+        "github.copilot-chat/gemini-2.0-flash-001",
+        "github.copilot-chat/gemini-2.5-pro",
+        "github.copilot-chat/gpt-4o",
+        "github.copilot-chat/o3-mini",
+        "github.copilot-chat/o4-mini"
+      ]
+    }
+  },
+  "diffEditor.renderSideBySide": true,
+  "chat.mcp.autostart": "newAndOutdated",
+  "redhat.telemetry.enabled": false
 }

@@ -187,6 +187,25 @@
     "key": "ctrl+space r",
     "command": "revealInExplorer"
   },
+      {
+      "key": "ctrl+space d",
+      "command": "revealInExplorer"
+    },
+    {
+      "key": "ctrl+space g",
+      "command": "workbench.view.scm"
+    },
+    {
+      "key": "ctrl+space m",
+      "command": "runCommands",
+      "args": {
+        "commands": [
+          "workbench.action.maximizeEditorHideSidebar",
+          "workbench.action.closePanel"
+        ]
+      },
+      "when": "auxiliaryBarVisible || sideBarVisible || editorPartMultipleEditorGroups && !editorPartMaximizedEditorGroup || panelVisible"
+    }
   {
     "key": "ctrl+/",
     "command": "undo"
