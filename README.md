@@ -33,6 +33,6 @@ Link the official file path location to the dot files
 ### macOS
 
 ``` sh
-ln -s ~/.vscode.keybindings.json /Users/kevin/Library/Application\ Support/Code/User/keybindings.json
-ln -s ~/.vscode.settings.json /Users/kevin/Library/Application\ Support/Code/User/settings.json
+ln -s ~/.vscode.keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+ln -s ~/.vscode.settings.json ~/Library/Application\ Support/Code/User/settings.json
 ```
