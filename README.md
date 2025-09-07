@@ -25,3 +25,14 @@ Follow https://github.com/doomemacs/doomemacs?tab=readme-ov-file#prerequisites t
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d.doom
 ~/.emacs.d.doom/bin/doom install
 ```
+
+## VSCode
+
+Link the official file path location to the dot files
+
+### macOS
+
+``` sh
+ln -s ~/.vscode.keybindings.json /Users/kevin/Library/Application\ Support/Code/User/keybindings.json
+ln -s ~/.vscode.settings.json /Users/kevin/Library/Application\ Support/Code/User/settings.json
+```
