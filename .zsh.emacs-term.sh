@@ -1,6 +1,3 @@
-# open files in Emacs from shell
-alias e='emacsclient -n'
-
 #directory tracking and prompt tracking for vterm
 # https://github.com/akermu/emacs-libvterm?tab=readme-ov-file#shell-side-configuration
 vterm_printf() {
