@@ -50,7 +50,9 @@
 ;(unpin! t)
 
 (package! ace-window)
+
 (package! deadgrep)
+
 (package! shell-here)
 ;(package! origami)
 (package! graphql-mode)
@@ -69,3 +71,5 @@
 (package! idle-highlight-mode)
 
 (package! neotree)
+
+(package! casual)

@@ -2,7 +2,7 @@
 
 My dot files
 
-https://www.atlassian.com/git/tutorials/dotfiles
+https://www.atlassian.com/git/tutorials/dotfiles (a trick to allow nesting other .git directories within ~ by not naming this one ".git")
 
 ## Set up a new machine
 ```

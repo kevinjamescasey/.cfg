@@ -99,7 +99,7 @@
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
              (define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)
-             (define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
+                                        ;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
              ))
 
 (print "loading open-file-at-point.el")
@@ -166,6 +166,22 @@
       (message "%s copied" new-kill-string)
       (kill-new new-kill-string))))
 
+;; this only works when called directly.
+;; refreshig status within Magit buffer doesn't work. other operations (like stage) don't work
+(defun my/magit-status-dotfiles ()
+  "Open Magit status for custom dotfiles repository."
+  (interactive)
+  (let* ((home (expand-file-name "~"))
+         (magit-git-global-arguments
+          (append (list (concat "--git-dir=" home "/.cfg")
+                        (concat "--work-tree=" home))
+                  magit-git-global-arguments)))
+    (magit-status home)))
+
+
+
+
+
 (setq-default typescript-indent-level 2)
 
 
@@ -175,16 +191,14 @@
 
 
 ;; start in fullscreen
+;; doom/reload will execute this and toggle it off
 (toggle-frame-fullscreen)
 
 (add-hook 'vue-mode-hook #'lsp!)
 
 
-                                        ;tried to make Emacs start in full screen
-                                        ;but doesn't quite line up correctly on Windows in XServer
-                                        ;(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
+;; is auto-saving buffer changes to files a good idea?
 
-                                        ; consider trying this auto save
 ;; (defun save-all ()
 ;;    (interactive)
 ;;    (save-some-buffers t))
@@ -192,10 +206,14 @@
 ;;  (add-hook 'focus-out-hook 'save-all)
 
 
-                                        ; white borders help between vterm panes that don't have a mode line
-                                        ; this is not working automatically but it works if you eval it
-                                        ; maybe it needs to run at a different time in a hook or something
-(set-face-foreground 'vertical-border "white")
+;; white borders help between vterm panes that don't have a mode line
+(custom-set-faces!
+  '(vertical-border :foreground "white")
+  '(window-divider :foreground "white"))
+
+
+;; ===================== package customization =========================
+;; https://github.com/doomemacs/core/blob/master/docs/getting_started.org#configuring-doom
 
 
 ;;https://github.com/jscheid/prettier.el#configuration
@@ -210,10 +228,19 @@
 ;;          (yaml-mode . prettier-mode)
 ;;          (ruby-mode . prettier-mode)))
 
-(use-package idle-highlight-mode
-  :config (setq idle-highlight-idle-time 0.2 idle-highlight-visible-buffers t)
+;; This was working, but it makes it difficult to see what expand-region is highlighting?
+;; (use-package idle-highlight-mode
+;;   :config (setq idle-highlight-idle-time 0.2 idle-highlight-visible-buffers t)
 
-  :hook ((prog-mode text-mode) . idle-highlight-mode))
+;;   :hook ((prog-mode text-mode) . idle-highlight-mode))
+
+(use-package! casual
+  :config
+  (map! :map dired-mode-map "?" #'casual-dired-tmenu
+        :map ibuffer-mode-map "?" #'casual-ibuffer-tmenu))
+
+
 
 (provide 'my-config)
 ;;; my-config.el ends here
+;;; 
