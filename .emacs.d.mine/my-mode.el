@@ -93,8 +93,8 @@
           (lambda ()
             (define-key neotree-mode-map (kbd "o") #'neotree-quick-look)))
 
-                                        ;(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
-(define-key my-mode-map (kbd "C-SPC g") 'deadgrep)
+(define-key my-mode-map (kbd "C-SPC g") 'magit-status)
+;; (define-key my-mode-map (kbd "C-SPC g") 'deadgrep)
 (define-key my-mode-map (kbd "C-s-s") 'deadgrep)
 
 

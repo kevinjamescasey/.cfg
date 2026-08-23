@@ -93,11 +93,6 @@
 
 (print "Configuring less crucial things")
 
-                                        ;not really using this. should probably remove it
-                                        ;I thought it would be useful to learn more ibuffer features, but YAGNI
-(load-file "~/.emacs.d.mine/hydra-ibuffer.el")
-                                        ;(define-key ibuffer-mode-map "?" 'hydra-ibuffer-main/body)
-
 (print "loading my-ibuffer.el")
 (load-file "~/.emacs.d.mine/my-ibuffer.el")
                                         ;(define-key ibuffer-mode-map "o" 'ibuffer-visit-buffer-other-window-noselect)

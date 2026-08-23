@@ -15,10 +15,15 @@ npm install -g marked
 brew install shellcheck
 #needed for Emacs Doom :editor format ...but didn't work yet
 npm install -g prettier
+# doom doctor says these are needed
+brew install --cask font-symbols-only-nerd-font
+brew install shfmt
+
 
 
 #install emacs
 brew tap railwaycat/emacsmacport
+brew trust railwaycat/emacsmacport
 brew install emacs-mac --with-modules
 
 # install doom
