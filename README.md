@@ -2,7 +2,9 @@
 
 My dot files
 
-https://www.atlassian.com/git/tutorials/dotfiles (a trick to allow nesting other .git directories within ~ by not naming this one ".git")
++ follows https://www.atlassian.com/git/tutorials/dotfiles
++ allows nesting other .git directories within ~ by not naming this one ".git"
++ allows managing other files in ~ with other Git repositories
 
 ## Set up a new machine
 ```
