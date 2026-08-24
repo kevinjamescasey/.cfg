@@ -21,7 +21,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "python.defaultInterpreterPath": "./.venv/bin/python",
 
   "files.associations": {
     "*.template": "yaml"
@@ -39,7 +38,7 @@
   },
   "csharp.suppressDotnetInstallWarning": true,
   "aws.telemetry": false,
-  "git.blame.editorDecoration.enabled": false,
+  "git.blame.editorDecoration.enabled": true,
   "git.autofetch": true,
   "git.confirmSync": false,
   "chat.mcp.serverSampling": {
@@ -60,5 +59,46 @@
   },
   "diffEditor.renderSideBySide": true,
   "chat.mcp.autostart": "newAndOutdated",
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/build/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/*.log": true
+  },
+  "python.analysis.typeCheckingMode": "basic",
+  "aws.cloudformation.telemetry.enabled": false,
+  "claudeCode.preferredLocation": "panel",
+  "chat.tools.terminal.autoApprove": {
+    "gamechanger": true
+  },
+  "git.blame.statusBarItem.enabled": true,
+  "[markdown]": {
+    "diffEditor.ignoreTrimWhitespace": true
+  },
+  "dotnetAcquisitionExtension.sharedExistingDotnetPath": "/usr/local/share/dotnet/dotnet",
+  "update.mode": "start",
+  "editor.renderWhitespace": "all",
+  "chat.agent.maxRequests": 100,
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "{git,gitlens,conflictResolution,vscode-local-history}:/**/*.tc.json": "default",
+    "{git,gitlens,conflictResolution,vscode-local-history}:/**/*.{asl.json,asl.yaml,asl.yml}": "default",
+    "*.png": "imagePreview.previewEditor"
+  },
+  "chat.tools.urls.autoApprove": {
+    "https://code.visualstudio.com": true,
+    "https://github.com/microsoft/vscode/wiki/*": true,
+    "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function": true,
+    "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb": true,
+    "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation": true,
+    "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule": true
+  },
+  "claudeCode.disableLoginPrompt": true,
+  "chat.viewSessions.orientation": "stacked"
 }

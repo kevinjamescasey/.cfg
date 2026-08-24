@@ -205,7 +205,7 @@
         ]
       },
       "when": "auxiliaryBarVisible || sideBarVisible || editorPartMultipleEditorGroups && !editorPartMaximizedEditorGroup || panelVisible"
-    }
+    },
   {
     "key": "ctrl+/",
     "command": "undo"
@@ -286,6 +286,14 @@
       "key": "ctrl+e",
       "command": "-workbench.action.quickOpen",
       "when": "isWindows"
+    },
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": "\\\r\n"
+        },
+        "when": "terminalFocus"
     },
   
   
