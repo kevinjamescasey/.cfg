@@ -16,6 +16,7 @@ brew install shellcheck
 #needed for Emacs Doom :editor format ...but didn't work yet
 npm install -g prettier
 # doom doctor says these are needed
+brew install fontconfig
 brew install --cask font-symbols-only-nerd-font
 brew install shfmt
 
