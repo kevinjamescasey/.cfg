@@ -3,8 +3,10 @@
 My dot files
 
 + follows https://www.atlassian.com/git/tutorials/dotfiles
-+ allows nesting other .git directories within ~ by not naming this one ".git"
 + allows managing other files in ~ with other Git repositories
+ + because the git-dir is named something besides ".git"
++ doesn't work well with tools like magit that expect the git-dir to be in the working-tree and named ".git"
+  
 
 ## Set up a new machine
 ```
@@ -12,6 +14,12 @@ git clone --bare git@github.com:kevinjamescasey/.cfg.git ~/.cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 config checkout
 echo "  fetch = +refs/heads/*:refs/remotes/origin/*" >> .cfg/config
+```
+
+If you don't want to use `-uno` often you can run
+
+``` sh
+  config config --local status.showUntrackedFiles no
 ```
 
 ## Emacs
