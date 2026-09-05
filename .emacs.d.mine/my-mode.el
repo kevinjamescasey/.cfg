@@ -88,10 +88,12 @@
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 
 (define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
-(define-key my-mode-map (kbd "C-SPC C-d") 'neotree-find)
-(add-hook 'neotree-mode-hook
-          (lambda ()
-            (define-key neotree-mode-map (kbd "o") #'neotree-quick-look)))
+(define-key my-mode-map (kbd "C-SPC C-d") 'treemacs-select-window)
+(define-key my-mode-map (kbd "C-SPC M-d") 'treemacs-select-directory)
+;; (define-key my-mode-map (kbd "C-SPC C-d") 'neotree-find)
+;; (add-hook 'neotree-mode-hook
+;;           (lambda ()
+;;             (define-key neotree-mode-map (kbd "o") #'neotree-quick-look)))
 
 (define-key my-mode-map (kbd "C-SPC g") 'magit-status)
 ;; (define-key my-mode-map (kbd "C-SPC g") 'deadgrep)
