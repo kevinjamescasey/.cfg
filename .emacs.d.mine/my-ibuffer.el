@@ -36,6 +36,7 @@
           (mode . comint-mode))
          ("files"
           (and (filename . ".")
+               (not (derived-mode . magit-mode))
                (not (used-mode . helpful-mode))
                (not (used-mode . emacs-news-view-mode))))
          ("special"
