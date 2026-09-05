@@ -3,8 +3,8 @@
 My dot files
 
 + follows https://www.atlassian.com/git/tutorials/dotfiles
-+ allows managing other files in ~ with other Git repositories
- + because the git-dir is named something besides ".git"
++ the git-dir is not named ".git"
+  + prevents tools like vcs_info from recognizing it
 + doesn't work well with tools like magit that expect the git-dir to be in the working-tree and named ".git"
   
 
