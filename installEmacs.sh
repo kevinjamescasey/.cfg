@@ -20,17 +20,18 @@ brew install fontconfig
 brew install --cask font-symbols-only-nerd-font
 brew install shfmt
 
-
-
 #install emacs
 brew tap railwaycat/emacsmacport
 brew trust railwaycat/emacsmacport
 brew install emacs-mac --with-modules
 
 # install doom
-git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d.doom
-~/.emacs.d.doom/bin/doom install --force
-~/.emacs.d.doom/bin/doom sync --force
+# git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d.doom
+# ~/.emacs.d.doom/bin/doom install --force
+# ~/.emacs.d.doom/bin/doom sync --force
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
+~/.config/emacs/bin/doom install --force
+~/.config/emacs/bin/doom sync --force
 
 # mv gnu emacs
 [ -f ~/.emacs ] && mv ~/.emacs ~/.emacs.bak
