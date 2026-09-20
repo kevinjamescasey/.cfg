@@ -87,8 +87,9 @@
 
 (define-key my-mode-map (kbd "C-SPC f") 'projectile-find-file)
 
-(define-key my-mode-map (kbd "C-SPC d") 'dired-jump)
+(define-key my-mode-map (kbd "C-SPC D") 'dired-jump)
 (define-key my-mode-map (kbd "C-SPC C-d") 'treemacs-select-window)
+(define-key my-mode-map (kbd "C-SPC d") 'my/treemacs-find-and-ensure-project)
 (define-key my-mode-map (kbd "C-SPC M-d") 'treemacs-select-directory)
 ;; (define-key my-mode-map (kbd "C-SPC C-d") 'neotree-find)
 ;; (add-hook 'neotree-mode-hook

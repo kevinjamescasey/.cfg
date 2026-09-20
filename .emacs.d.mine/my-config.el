@@ -178,10 +178,47 @@
                   magit-git-global-arguments)))
     (magit-status home)))
 
+(defun my/treemacs-find-and-ensure-project ()
+  "Show the current file in Treemacs and focus it.
+If the file's project is missing from the active workspace, add it automatically."
+  (interactive)
+  (if-let ((current-path (or (buffer-file-name)
+                             (and (eq major-mode 'dired-mode)
+                                  (or (ignore-errors (dired-get-file-for-visit)) ; use file or directory at point
+                                      (directory-file-name (dired-current-directory))))))) ; need to remove trailing slash for treemacs-find-file to work
+      (let* ((orig-buffer (current-buffer))
+             ;; Fallback safely: projectile -> project.el -> directory
+             (project-root (or (and (fboundp 'projectile-project-root)
+                                    (projectile-project-root))
+                               (and (fboundp 'project-current)
+                                    (when-let ((pr (project-current)))
+                                      (expand-file-name (project-root pr)))) ;there is a function with the same name as our local var
+                               (file-name-directory current-path))))
+        
+        ;; 1. Directly add the project path if Treemacs doesn't recognize it yet
+        (unless (treemacs-is-path current-path :in-workspace)
+          (let ((project-name (file-name-nondirectory (directory-file-name project-root))))
+            (treemacs-do-add-project-to-workspace project-root project-name)))
+        
+        ;; 2. Focus current-path in Treemacs
+        (let* ((buffer-file-name current-path))
+          (treemacs-find-file))
+        
+        ;; 3. Focus the active Treemacs window
+        (treemacs-select-window))
+    (user-error "Current buffer is not visiting a file")))
 
-
+;; useful cleaning up after trying out advices
+;; (defun unadvise-all (symbol)
+;;   "Remove all pieces of advice from SYMBOL."
+;;   (interactive "fFunction: ")
+;;   (advice-mapc (lambda (ad-fun _props)
+;;                  (advice-remove symbol ad-fun))
+;;                symbol))
 
 (setq-default typescript-indent-level 2)
+
+(setq vundo-glyph-alist vundo-ascii-symbols) ; unicode symbols cause misaligned branches
 
 
 ;; turn on GitHub flavored Markdown mode for .mdx files
