@@ -1,4 +1,5 @@
-echo "loading .zshrc for interactive shell" 
+echo "executing .zshrc for interactive shell" 
+
 # enables zsh's profiling
 # many things need to be in functions to be included in profiling
 #zmodload zsh/zprof
@@ -43,3 +44,5 @@ awsShellConfig
 
 # print -rl -- "--- Zsh Startup Timings ---" $ZLOGS
 #zprof # shows zsh's profiling information
+
+ 
