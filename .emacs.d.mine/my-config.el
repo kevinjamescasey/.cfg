@@ -111,7 +111,7 @@
     (print "dired-mode-map is bound")
   (print "dired-mode-map is NOT bound"))
 (add-hook 'dired-mode-hook
-	  '(lambda ()
+	      '(lambda ()
              (define-key dired-mode-map "o" 'dired-display-file)))
 
 
@@ -185,8 +185,10 @@ If the file's project is missing from the active workspace, add it automatically
   (if-let ((current-path (or (buffer-file-name)
                              (and (eq major-mode 'dired-mode)
                                   (or (ignore-errors (dired-get-file-for-visit)) ; use file or directory at point
-                                      (directory-file-name (dired-current-directory))))))) ; need to remove trailing slash for treemacs-find-file to work
-      (let* ((orig-buffer (current-buffer))
+                                      (directory-file-name (dired-current-directory)))) ; need to remove trailing slash for treemacs-find-file to work
+                             (and (eq major-mode 'vterm-mode)
+                                  (directory-file-name default-directory))))) ; need to remove trailing slash for treemacs-find-file to work
+      (let* (;(orig-buffer (current-buffer)) ; commend this sexp out becuase it doesn't appear to be used
              ;; Fallback safely: projectile -> project.el -> directory
              (project-root (or (and (fboundp 'projectile-project-root)
                                     (projectile-project-root))
@@ -197,6 +199,7 @@ If the file's project is missing from the active workspace, add it automatically
         
         ;; 1. Directly add the project path if Treemacs doesn't recognize it yet
         (unless (treemacs-is-path current-path :in-workspace)
+          (message "adding %s to treemacs workspace" current-path)
           (let ((project-name (file-name-nondirectory (directory-file-name project-root))))
             (treemacs-do-add-project-to-workspace project-root project-name)))
         
