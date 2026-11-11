@@ -38,6 +38,12 @@ homebrewShellConfig
 
 . ~/.zsh.aws.sh
 awsShellConfig
+
+# Only initialize direnv if the executable is available in your PATH
+if (( $+commands[direnv] )); then
+    eval "$(direnv hook zsh)"
+fi
+
 # zmsg 'completed aws autocomplete'
 
 # zmsg 'completed final cusomizations'
@@ -45,4 +51,4 @@ awsShellConfig
 # print -rl -- "--- Zsh Startup Timings ---" $ZLOGS
 #zprof # shows zsh's profiling information
 
- 
+

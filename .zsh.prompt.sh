@@ -1,10 +1,22 @@
 # from https://www.themoderncoder.com/add-git-branch-information-to-your-zsh-prompt/
 # Load version control information
 autoload -Uz vcs_info
-precmd() { vcs_info }
+
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats ' %b '
 setopt PROMPT_SUBST
+
+precmd() {
+    # Run Git status detection
+    vcs_info
+    
+    # Run virtual environment detection
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        prompt_venv="[%F{yellow}${VIRTUAL_ENV:t}%f] "
+    else
+        prompt_venv=""
+    fi
+}
 
 if [[ "$TERM" == "dumb" ]]; then
   # No terminal escape sequences, only prompt escapes
@@ -13,7 +25,7 @@ if [[ "$TERM" == "dumb" ]]; then
 else
     # Assuming a rich terminal, using terminal escape sequences
     #DEFAULT_PS1='\[\033[01;32m\]\D{%F} \t \[\033[1;31m\]\w\[\033[01;34m\]\$ \[\033[00m\]'
-    DEFAULT_PS1='%t %K{cyan}%F{black}%~%k%f%F{magenta}${vcs_info_msg_0_}%f%F{cyan}>%f'
+    DEFAULT_PS1='%t %K{cyan}%F{black}%~%k%f%F{magenta}${vcs_info_msg_0_}%f${prompt_venv}%F{cyan}>%f'
     PS1="$DEFAULT_PS1"
 fi
 
